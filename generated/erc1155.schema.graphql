@@ -25,6 +25,7 @@ type ERC1155Token @entity {
 	totalSupply: ERC1155Balance!
 	balances: [ERC1155Balance!]! @derivedFrom(field: "token")
 	transfers: [ERC1155Transfer!]! @derivedFrom(field: "token")
+	mintBlock: BigInt!
 }
 type ERC1155Balance @entity {
 	id: ID!

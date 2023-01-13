@@ -125,6 +125,7 @@ type ERC1155Token @entity {
 	totalSupply: ERC1155Balance!
 	balances: [ERC1155Balance!]! @derivedFrom(field: "token")
 	transfers: [ERC1155Transfer!]! @derivedFrom(field: "token")
+	mintBlock: BigInt!
 }
 type ERC1155Balance @entity {
 	id: ID!
@@ -238,6 +239,7 @@ type ERC721Token @entity {
 	approval: Account!
 	uri: String
 	transfers: [ERC721Transfer!]! @derivedFrom(field: "token")
+	mintBlock: BigInt!
 }
 type ERC721Operator @entity {
 	id: ID!

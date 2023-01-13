@@ -46,7 +46,7 @@ function registerTransfer(
 	value:    BigInt)
 : void
 {
-	let token      = fetchERC1155Token(contract, id, event.block)
+	let token      = fetchERC1155Token(contract, id, event.block.number)
 	let ev         = new ERC1155Transfer(events.id(event).concat(suffix))
 	ev.emitter     = token.id
 	ev.transaction = transactions.log(event).id
@@ -153,7 +153,7 @@ export function handleApprovalForAll(event: ApprovalForAllEvent): void {
 export function handleURI(event: URIEvent): void
 {
 	let contract = fetchERC1155(event.address)
-	let token    = fetchERC1155Token(contract, event.params.id)
+	let token    = fetchERC1155Token(contract, event.params.id, event.block.number)
 	token.uri    = replaceURI(event.params.value, event.params.id)
 	token.save()
 }
