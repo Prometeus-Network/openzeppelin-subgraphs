@@ -26,7 +26,7 @@ import {
 export function handleTransfer(event: TransferEvent): void {
 	let contract = fetchERC721(event.address)
 	if (contract != null) {
-		let token = fetchERC721Token(contract, event.params.tokenId)
+		let token = fetchERC721Token(contract, event.params.tokenId, event.block)
 		let from  = fetchAccount(event.params.from)
 		let to    = fetchAccount(event.params.to)
 

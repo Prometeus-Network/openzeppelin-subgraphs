@@ -65,7 +65,7 @@ export function fetchERC721(address: Address): ERC721Contract | null {
 	return null;
 }
 
-export function fetchERC721Token(contract: ERC721Contract, identifier: BigInt): ERC721Token {
+export function fetchERC721Token(contract: ERC721Contract, identifier: BigInt, mintBlock?: BigInt): ERC721Token {
 	let id = contract.id.concat('/').concat(identifier.toHex())
 	let token = ERC721Token.load(id)
 
@@ -74,6 +74,7 @@ export function fetchERC721Token(contract: ERC721Contract, identifier: BigInt): 
 		token.contract   = contract.id
 		token.identifier = identifier
 		token.approval   = fetchAccount(Address.fromString(constants.ADDRESS_ZERO)).id
+    if(mintBlock) { token.mintBlock = mintBlock; }
 
 		if (contract.supportsMetadata) {
 			let erc721       = IERC721.bind(Address.fromString(contract.id))

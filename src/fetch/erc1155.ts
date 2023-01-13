@@ -41,7 +41,7 @@ export function fetchERC1155(address: Address): ERC1155Contract {
 	return contract
 }
 
-export function fetchERC1155Token(contract: ERC1155Contract, identifier: BigInt): ERC1155Token {
+export function fetchERC1155Token(contract: ERC1155Contract, identifier: BigInt, mintBlock?: BigInt): ERC1155Token {
 	let id = contract.id.concat('/').concat(identifier.toHex())
 	let token = ERC1155Token.load(id)
 
@@ -53,6 +53,7 @@ export function fetchERC1155Token(contract: ERC1155Contract, identifier: BigInt)
 		token.identifier       = identifier
 		token.totalSupply      = fetchERC1155Balance(token as ERC1155Token, null).id
 		token.uri              = try_uri.reverted ? null : replaceURI(try_uri.value, identifier)
+		if(mintBlock) { token.mintBlock = mintBlock; }
 		token.save()
 	}
 
